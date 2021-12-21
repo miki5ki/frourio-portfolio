@@ -1,28 +1,12 @@
 import React from 'react'
-import {
-  Box,
-  Button,
-  Heading,
-  Icon,
-  Input,
-  Flex,
-  PopoverTrigger,
-  Popover,
-  PopoverContent,
-  PopoverBody,
-  RadioGroup,
-  Radio,
-  Link,
-  Divider,
-  VStack,
-  Stack
-} from '@chakra-ui/react'
+import { Box, Button, Heading, Icon, Input } from '@chakra-ui/react'
 import { MdOutlineNotifications } from 'react-icons/md'
 import { BiUserCircle } from 'react-icons/bi'
 import { useRouter } from 'next/router'
 
 export const Header = () => {
   const router = useRouter()
+  const id = 1
   return (
     <Box
       bg="green.300"
@@ -32,7 +16,14 @@ export const Header = () => {
       justifyContent="space-between"
     >
       <Box display="flex">
-        <Heading size="lg" py={1} pl={2} color="gray.700">
+        <Heading
+          size="lg"
+          py={1}
+          pl={2}
+          color="gray.700"
+          onClick={() => router.push('/')}
+          cursor="pointer"
+        >
           技術掲示板
         </Heading>
         <Input
@@ -56,24 +47,14 @@ export const Header = () => {
           投稿する
         </Button>
         <Icon as={MdOutlineNotifications} w={6} h={6} mx={2} />
-        <Popover>
-          <PopoverTrigger>
-            <Icon as={BiUserCircle} w={6} h={6} mx={2} cursor="pointer" />
-          </PopoverTrigger>
-          <PopoverContent rounded="sm">
-            <PopoverBody>
-              <Stack>
-                <Link>マイページ</Link>
-                <Divider borderColor="gray.400" />
-                <Link>新規登録</Link>
-                <Link>下書き記事</Link>
-                <Link>限定共有記事</Link>
-                <Link>編集リクエスト</Link>
-              </Stack>
-              <Divider borderColor="whiteAlpha.400" />
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
+        <Icon
+          as={BiUserCircle}
+          w={6}
+          h={6}
+          mx={2}
+          cursor="pointer"
+          onClick={() => router.push(`/mypage/${id}`)}
+        />
       </Box>
     </Box>
   )

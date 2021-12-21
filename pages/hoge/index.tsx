@@ -10,6 +10,7 @@ import { Checkbox, Radio } from '@chakra-ui/react'
 
 const Hoge = () => {
   const { data: tasks, error, revalidate } = useAspidaSWR(apiClient.tasks)
+
   console.log(tasks)
 
   const [label, setLabel] = useState('')
@@ -27,7 +28,7 @@ const Hoge = () => {
       e.preventDefault()
       if (!label) return
 
-      await apiClient.tasks.post({ body: { label, done } })
+      await apiClient.tasks.post({ body: { label } })
       setLabel('')
       revalidate()
     },

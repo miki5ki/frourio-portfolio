@@ -12,3 +12,14 @@ model Task {
   label String
   done  Boolean @default(false)
 }
+
+model Topic {
+  id Int @id @default(autoincrement())
+  title String
+  message String
+  tag String
+  like Int
+  userName String
+  userId Int
+  createdAt String
+}
