@@ -4,11 +4,11 @@ import { apiClient } from '~/utils/apiClient'
 import type { UserInfo } from '$/types'
 import { useForm } from 'react-hook-form'
 
-type Login = {
+type Authentication = {
   id: string
   pass: string
 }
-export const Login = () => {
+export const Authentication = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [token, setToken] = useState('')
   const [userInfo, setUserInfo] = useState({} as UserInfo)

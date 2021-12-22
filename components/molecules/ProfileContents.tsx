@@ -3,7 +3,7 @@ import { MdSettings } from 'react-icons/md'
 
 export const ProfileContents = () => {
   return (
-    <Box w="200px" bg="gray.200">
+    <Box minW="100vw" bg="gray.200" h="100px">
       <Icon as={MdSettings} />
     </Box>
   )

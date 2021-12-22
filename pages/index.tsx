@@ -1,11 +1,7 @@
-import { Box, Center, Text, Flex } from '@chakra-ui/react'
-import React from 'react'
-import { Header } from '~/components/molecules/Header'
-import { Sidebar } from '~/components/molecules/Sidebar'
-import { TopicsTable } from '~/components/molecules/TopicsTable'
 import type { ReactElement } from 'react'
-import { ChakraProvider } from '@chakra-ui/react'
-import { theme } from '../theme/index'
+import { Box } from '@chakra-ui/react'
+import { TopicsTable } from '~/components/molecules/TopicsTable'
+import { MainLayout } from '~/components/layouts/MainLayout'
 
 const Home = () => {
   return (
@@ -30,16 +26,4 @@ const Home = () => {
 
 export default Home
 
-Home.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <>
-      <ChakraProvider theme={theme}>
-        <Header />
-        <Flex>
-          <Sidebar />
-          {page}
-        </Flex>
-      </ChakraProvider>
-    </>
-  )
-}
+Home.getLayout = (page: ReactElement) => <MainLayout>{page}</MainLayout>

@@ -1,12 +1,15 @@
-import React from 'react'
-import { Login } from '~/components/organisms/Login'
+import type { ReactElement } from 'react'
+import { Authentication } from '~/components/organisms/Authentication'
+import { LoginLayout } from '~/components/layouts/LoginLayout'
 
-const index = () => {
+const login = () => {
   return (
     <>
-      <Login />
+      <Authentication />
     </>
   )
 }
 
-export default index
+export default login
+
+login.getLayout = (page: ReactElement) => <LoginLayout>{page}</LoginLayout>

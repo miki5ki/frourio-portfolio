@@ -1,20 +1,19 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ChakraProvider, Flex, Box, Heading } from '@chakra-ui/react'
-import { theme } from '../theme/index'
-import { Sidebar } from '~/components/molecules/Sidebar'
-import { Header } from '~/components/molecules/Header'
+import type { ReactElement, ReactNode } from 'react'
+import type { NextPage } from 'next'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <ChakraProvider theme={theme}>
-      <Header />
-      <Flex>
-        <Sidebar />
-        <Component {...pageProps} />
-      </Flex>
-    </ChakraProvider>
-  )
+export type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout || ((page) => page)
+
+  return getLayout(<Component {...pageProps} />)
 }
 
 export default MyApp
