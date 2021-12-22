@@ -1,6 +1,6 @@
 import { depend } from 'velona'
 import { PrismaClient } from '@prisma/client'
-import type { Topic } from '$prisma/client'
+import type { Topic, Prisma } from '$prisma/client'
 const prisma = new PrismaClient()
 
 export const findTopic = (id: Topic['id']) =>
@@ -18,3 +18,8 @@ export const createTopic = (
     'message' | 'title' | 'createdAt' | 'userName' | 'tag' | 'like' | 'userId'
   >
 ) => prisma.topic.create({ data: { ...body } })
+
+export const updateTopic = (
+  id: Topic['id'],
+  partialTopic: Prisma.TopicUpdateInput
+) => prisma.topic.update({ where: { id }, data: partialTopic })

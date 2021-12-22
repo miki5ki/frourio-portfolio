@@ -101,6 +101,7 @@ export const InputContents: VFC<Props> = ({ editable }) => {
       <Button
         variant="outline"
         mt={5}
+        mr={3}
         onClick={
           editable
             ? () => router.push(`/mypage/${userInfo.id}`)
@@ -109,6 +110,7 @@ export const InputContents: VFC<Props> = ({ editable }) => {
       >
         キャンセル
       </Button>
+      {editable ? <Button mt={5}>削除</Button> : null}
     </Box>
   )
 }
