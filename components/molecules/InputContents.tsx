@@ -20,8 +20,9 @@ import { userInfoState } from '~/atoms/userInfoState'
 
 type Props = {
   editable: boolean
+  handleDelete: any
 }
-export const InputContents: VFC<Props> = ({ editable }) => {
+export const InputContents: VFC<Props> = ({ editable, handleDelete }) => {
   const userInfo = useRecoilValue(userInfoState)
   const router = useRouter()
   const {
@@ -110,7 +111,11 @@ export const InputContents: VFC<Props> = ({ editable }) => {
       >
         キャンセル
       </Button>
-      {editable ? <Button mt={5}>削除</Button> : null}
+      {editable ? (
+        <Button mt={5} onClick={handleDelete}>
+          削除
+        </Button>
+      ) : null}
     </Box>
   )
 }

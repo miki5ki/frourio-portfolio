@@ -23,3 +23,6 @@ export const updateTopic = (
   id: Topic['id'],
   partialTopic: Prisma.TopicUpdateInput
 ) => prisma.topic.update({ where: { id }, data: partialTopic })
+
+export const deleteTopic = (id: Topic['id']) =>
+  prisma.topic.delete({ where: { id } })

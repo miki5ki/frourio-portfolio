@@ -37,6 +37,18 @@ export const TopicEdit = () => {
     router.push(`/mypage/${userInfo.id}`)
   }
 
+  const handleDelete = async () => {
+    const id = router.query.id as string
+    try {
+      if (id) {
+        await apiClient.topics._topicId(parseInt(id)).delete()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    router.push(`/mypage/${userInfo.id}`)
+  }
+
   if (!topic) return <Spinner />
 
   methods.setValue('title', topic.title)
@@ -47,7 +59,7 @@ export const TopicEdit = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <InputContents editable={true} />
+        <InputContents editable={true} handleDelete={handleDelete} />
       </form>
     </FormProvider>
   )

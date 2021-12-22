@@ -1,5 +1,5 @@
 import { defineController } from './$relay'
-import { findTopic, updateTopic } from '$/service/topics'
+import { findTopic, updateTopic, deleteTopic } from '$/service/topics'
 
 export default defineController(() => ({
   get: async ({ params }) => {
@@ -9,6 +9,10 @@ export default defineController(() => ({
   },
   patch: async ({ body, params }) => {
     await updateTopic(params.topicId, body)
+    return { status: 204 }
+  },
+  delete: async ({ params }) => {
+    await deleteTopic(params.topicId)
     return { status: 204 }
   }
 }))

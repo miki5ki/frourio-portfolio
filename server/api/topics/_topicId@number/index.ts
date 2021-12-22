@@ -9,4 +9,7 @@ export type Methods = {
     reqBody: Partial<Pick<Topic, 'title' | 'message' | 'tag'>>
     status: 204
   }
+  delete: {
+    status: 204
+  }
 }
