@@ -12,9 +12,12 @@ import { useRouter } from 'next/router'
 import { AiOutlineHome } from 'react-icons/ai'
 import { BiTimeFive } from 'react-icons/bi'
 import { MdAutoGraph } from 'react-icons/md'
+import { useSetRecoilState } from 'recoil'
+import { userInfoState } from '~/atoms/userIdState'
 const userId = 3
 export const Sidebar = () => {
   const router = useRouter()
+  const setUserInfo = useSetRecoilState(userInfoState)
   return (
     <Box w="200px" minHeight="calc(100vh - 50px)" ml={6}>
       <Flex direction="column">

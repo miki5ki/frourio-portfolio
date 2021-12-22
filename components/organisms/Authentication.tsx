@@ -1,8 +1,21 @@
 import { useState, useCallback, ChangeEvent } from 'react'
-import { Box, Button, Heading, Input, Flex, Stack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Heading,
+  Input,
+  Flex,
+  Stack,
+  Alert,
+  AlertIcon,
+  useToast
+} from '@chakra-ui/react'
 import { apiClient } from '~/utils/apiClient'
 import type { UserInfo } from '$/types'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
+import { useRecoilState } from 'recoil'
+import { userInfoState } from '~/atoms/userIdState'
 
 type Authentication = {
   id: string
@@ -11,7 +24,9 @@ type Authentication = {
 export const Authentication = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [token, setToken] = useState('')
-  const [userInfo, setUserInfo] = useState({} as UserInfo)
+  const toast = useToast()
+  const router = useRouter()
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState)
 
   const {
     register,
@@ -20,19 +35,20 @@ export const Authentication = () => {
     formState: { errors }
   } = useForm()
 
-  const editIcon = useCallback(
-    async (e: ChangeEvent<HTMLInputElement>) => {
-      if (!e.target.files?.length) return
+  console.log(userInfo)
+  // const editIcon = useCallback(
+  //   async (e: ChangeEvent<HTMLInputElement>) => {
+  //     if (!e.target.files?.length) return
 
-      setUserInfo(
-        await apiClient.user.$post({
-          headers: { authorization: token },
-          body: { icon: e.target.files[0] }
-        })
-      )
-    },
-    [token]
-  )
+  //     setUserInfo(
+  //       await apiClient.user.$post({
+  //         headers: { authorization: token },
+  //         body: { icon: e.target.files[0] }
+  //       })
+  //     )
+  //   },
+  //   [token]
+  // )
 
   const handleLogin = useCallback(async (data) => {
     let newToken = ''
@@ -47,23 +63,25 @@ export const Authentication = () => {
       }`
       setToken(newToken)
     } catch (e) {
-      return alert('Login failed')
+      return toast({
+        title: `アカウントもしくはパスワードが正しくありません。`,
+        position: 'top',
+        isClosable: true,
+        status: 'error'
+      })
     }
 
     setUserInfo(
       await apiClient.user.$get({ headers: { authorization: newToken } })
     )
     setIsLoggedIn(true)
+    router.push('/')
   }, [])
-
-  console.log(userInfo)
 
   const logout = useCallback(() => {
     setToken('')
     setIsLoggedIn(false)
   }, [])
-
-  console.log(token)
 
   return (
     <form onSubmit={handleSubmit(handleLogin)}>
