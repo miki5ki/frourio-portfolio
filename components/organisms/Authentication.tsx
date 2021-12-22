@@ -15,7 +15,7 @@ import type { UserInfo } from '$/types'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useRecoilState } from 'recoil'
-import { userInfoState } from '~/atoms/userIdState'
+import { userInfoState } from '~/atoms/userInfoState'
 
 type Authentication = {
   id: string

@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, VFC } from 'react'
 import {
   Box,
   Button,
+  Center,
   Checkbox,
   FormControl,
   FormLabel,
@@ -13,19 +14,30 @@ import {
 } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import { useCallback } from 'react'
+import { Heading } from '@chakra-ui/react'
+import { useRecoilValue } from 'recoil'
+import { userInfoState } from '~/atoms/userInfoState'
 
-export const InputContents = () => {
+type Props = {
+  editable: boolean
+}
+export const InputContents: VFC<Props> = ({ editable }) => {
+  const userInfo = useRecoilValue(userInfoState)
   const router = useRouter()
   const {
     register,
-    formState: { errors }
+    formState: { errors },
+    getValues
   } = useFormContext()
-  const [tag, setTag] = useState('React')
+
+  const tag = getValues('tag')
 
   return (
-    <Box w="800px" bg="white" p={6} mt={4}>
-      <Stack spacing={5}>
+    <Box w="auto" bg="white" p={6} mt={4}>
+      <Center>
+        <Heading size="lg">記事の{editable ? '編集' : '新規登録'}</Heading>
+      </Center>
+      <Stack spacing={5} mt={2}>
         <FormControl isInvalid={errors.title}>
           <FormLabel>タイトル</FormLabel>
           <Input
@@ -52,7 +64,7 @@ export const InputContents = () => {
         </FormControl>
         <FormControl>
           <FormLabel>タグ</FormLabel>
-          <RadioGroup colorScheme="green" id="tag">
+          <RadioGroup colorScheme="gray" id="tag" defaultValue={tag}>
             <Stack direction="row">
               <Radio value="html" {...register('tag')}>
                 html
@@ -76,8 +88,26 @@ export const InputContents = () => {
           </RadioGroup>
         </FormControl>
       </Stack>
-      <Button type="submit" colorScheme="green" bg="green.700" mt={5}>
-        投稿
+      <Button
+        type="submit"
+        colorScheme="gray"
+        bg="gray.700"
+        mt={5}
+        mr={3}
+        color="white"
+      >
+        {editable ? '保存' : '投稿'}
+      </Button>
+      <Button
+        variant="outline"
+        mt={5}
+        onClick={
+          editable
+            ? () => router.push(`/mypage/${userInfo.id}`)
+            : () => router.push('/topics')
+        }
+      >
+        キャンセル
       </Button>
     </Box>
   )

@@ -3,13 +3,15 @@ import { Box, Button, Heading, Icon, Input } from '@chakra-ui/react'
 import { MdOutlineNotifications } from 'react-icons/md'
 import { BiUserCircle } from 'react-icons/bi'
 import { useRouter } from 'next/router'
+import { useRecoilValue } from 'recoil'
+import { userInfoState } from '~/atoms/userInfoState'
 
 export const Header = () => {
   const router = useRouter()
-  const id = 1
+  const userInfo = useRecoilValue(userInfoState)
   return (
     <Box
-      bg="green.300"
+      bg="gray.300"
       h="50px"
       display="flex"
       alignItems="center"
@@ -38,11 +40,11 @@ export const Header = () => {
       <Box display="flex" alignItems="center" m={5}>
         <Button
           mx={5}
-          bg="green.700"
+          bg="gray.700"
           color="white"
           h="35px"
           onClick={() => router.push('/topics/create')}
-          colorScheme="green"
+          colorScheme="gray"
         >
           投稿する
         </Button>
@@ -53,7 +55,7 @@ export const Header = () => {
           h={6}
           mx={2}
           cursor="pointer"
-          onClick={() => router.push(`/mypage/${id}`)}
+          onClick={() => router.push(`/mypage/${userInfo.id}`)}
         />
       </Box>
     </Box>

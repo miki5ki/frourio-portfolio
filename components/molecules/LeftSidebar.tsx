@@ -13,9 +13,9 @@ import { AiOutlineHome } from 'react-icons/ai'
 import { BiTimeFive } from 'react-icons/bi'
 import { MdAutoGraph } from 'react-icons/md'
 import { useSetRecoilState } from 'recoil'
-import { userInfoState } from '~/atoms/userIdState'
+import { userInfoState } from '~/atoms/userInfoState'
 const userId = 3
-export const Sidebar = () => {
+export const LeftSidebar = () => {
   const router = useRouter()
   const setUserInfo = useSetRecoilState(userInfoState)
   return (
@@ -64,7 +64,16 @@ export const Sidebar = () => {
           position="absolute"
           bottom="0"
         >
-          <Button p={2} mx={4} w="150px" _hover={{ bg: 'gray.200' }}>
+          <Button
+            p={2}
+            mx={2}
+            w="150px"
+            _hover={{ bg: 'gray.200' }}
+            variant="outline"
+            bg="white"
+            color="black"
+            onClick={() => router.push('/login')}
+          >
             ログアウト
           </Button>
         </Box>

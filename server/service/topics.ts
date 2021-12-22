@@ -3,6 +3,9 @@ import { PrismaClient } from '@prisma/client'
 import type { Topic } from '$prisma/client'
 const prisma = new PrismaClient()
 
+export const findTopic = (id: Topic['id']) =>
+  prisma.topic.findFirst({ where: { id } })
+
 export const getTopics = depend(
   { prisma: prisma as { topic: { findMany(): Promise<Topic[]> } } },
   async ({ prisma }, limit?: number) =>
